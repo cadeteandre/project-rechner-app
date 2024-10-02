@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Rechner App</title>
+</head>
+<body class="flex">
+        <legend>Mehrwertsteuer-Rechner</legend>
+        <fieldset>
+            <form action="" class="flex form" onsubmit="return false">
+                <div class="flex form__block">
+                    <label class="bold" for="">Was soll berechnet werden?</label>
+                    <div class="radio__block">
+                        <input type="radio" name="operation" id="aufschlagen" value="aufschlagen">
+                        <label for="radio">Mehrwertsteuer aufschlagen (Netto zu Brutto)</label>
+                    </div>
+                    <div class="radio__block">
+                        <input type="radio" name="operation" id="abziehen" value="abziehen">
+                        <label for="radio">Mehrwertsteuer abziehen (Brutto zu Netto)</label>
+                    </div>
+                </div>
+                <div class="flex form__block">
+                    <label class="bold" for="radio">Mehrwertsteuersatz</label>
+                    <div class="radio__block">
+                        <input type="radio" name="wert" id="19" value="19">
+                        <label for="radio">19%</label>
+                    </div>
+                    <div class="radio__block">
+                        <input type="radio" name="wert" id="7" value="7">
+                        <label for="radio">7%</label>
+                    </div>
+                </div>
+                <div class="flex form__block">
+                    <label class="nettobetrag-title" for="number">Nettobetrag (Preis ohne Mehrwertsteuer) in Euro<span class="required">*</span></label>
+                    <label class="bruttobetrag-title" for="number">Bruttobetrag (Preis inkliusive Mehrwertsteuer) in Euro<span class="required">*</span></label>
+                    <input type="text" name="nettobetrag" id="nettobetrag">
+                </div>
+                <!-- <input class="btn" type="button" value="Berechnen"> -->
+                <button>Berechnen</button>
+                <div class="flex results">
+                    <h2>Ergebnis</h2>
+                    <div class="flex results__block">
+                        <p class="bold">Mehrwertsteuerbetrag</p>
+                        <p class="vat">€</p>
+                    </div>
+                    <div class="flex results__block">
+                        <p class="bold nettobetrag-title">Bruttobetrag (Endpreis)</p>
+                        <p class="bold bruttobetrag-title">Nettobetrag</p>
+                        <p class="gross-amount">€</p>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+
+    <script type="module" src="./rechner-app.ts"></script>
+</body>
+</html>
