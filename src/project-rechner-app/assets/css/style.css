@@ -66,6 +66,9 @@ h2 {
     gap: 1rem;
 }
 
-.bruttobetrag-title {
+.bruttoZuNetto {
+    display: none;
+}
+.bruttoZuNetto__result {
     display: none;
 }

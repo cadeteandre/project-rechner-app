@@ -24,17 +24,17 @@
                 <div class="flex form__block">
                     <label class="bold" for="radio">Mehrwertsteuersatz</label>
                     <div class="radio__block">
-                        <input type="radio" name="wert" id="19" value="19">
+                        <input class="vat__rate__19" type="radio" name="wert" id="19" value="19">
                         <label for="radio">19%</label>
                     </div>
                     <div class="radio__block">
-                        <input type="radio" name="wert" id="7" value="7">
+                        <input class="vat__rate__7" type="radio" name="wert" id="7" value="7">
                         <label for="radio">7%</label>
                     </div>
                 </div>
                 <div class="flex form__block">
-                    <label class="nettobetrag-title" for="number">Nettobetrag (Preis ohne Mehrwertsteuer) in Euro<span class="required">*</span></label>
-                    <label class="bruttobetrag-title" for="number">Bruttobetrag (Preis inkliusive Mehrwertsteuer) in Euro<span class="required">*</span></label>
+                    <label class="nettoZuBrutto" for="number">Nettobetrag (Preis ohne Mehrwertsteuer) in Euro<span class="required">*</span></label>
+                    <label class="bruttoZuNetto" for="number">Bruttobetrag (Preis inkliusive Mehrwertsteuer) in Euro<span class="required">*</span></label>
                     <input type="text" name="nettobetrag" id="nettobetrag">
                 </div>
                 <!-- <input class="btn" type="button" value="Berechnen"> -->
@@ -46,8 +46,8 @@
                         <p class="vat">€</p>
                     </div>
                     <div class="flex results__block">
-                        <p class="bold nettobetrag-title">Bruttobetrag (Endpreis)</p>
-                        <p class="bold bruttobetrag-title">Nettobetrag</p>
+                        <p class="bold nettoZuBrutto__result">Bruttobetrag (Endpreis)</p>
+                        <p class="bold bruttoZuNetto__result">Nettobetrag</p>
                         <p class="gross-amount">€</p>
                     </div>
                 </div>

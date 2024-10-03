@@ -1,91 +1,68 @@
-const form = document.querySelector('.form');
 const aufschlagen = document.querySelector('#aufschlagen') as HTMLInputElement;
 const abziehen = document.querySelector('#abziehen') as HTMLInputElement;
-const nettobetragTitle = document.querySelectorAll('.nettobetrag-title');
-const bruttobetragTitle = document.querySelectorAll('.bruttobetrag-title');
+const vatRate19 = document.querySelector('.vat__rate__19') as HTMLInputElement;
+const vatRate7 = document.querySelector('.vat__rate__7') as HTMLInputElement;
+const nettoZuBrutto = document.querySelector('.nettoZuBrutto') as HTMLElement;
+const bruttoZuNetto = document.querySelector('.bruttoZuNetto') as HTMLElement;
+const nettoZuBruttoResult = document.querySelector('.nettoZuBrutto__result') as HTMLElement;
+const bruttoZuNettoResult = document.querySelector('.bruttoZuNetto__result') as HTMLElement;
+const button = document.querySelector('button') as HTMLElement;
 
 
-abziehen.addEventListener('click', function changeCalc() {
-    for(const betragTitle of nettobetragTitle) {
-        betragTitle.style.display = 'none';
-    }
-    for(const betragTitle of bruttobetragTitle) {
-        betragTitle.style.display = 'block';
-    }
-})
+if(aufschlagen && abziehen && 
+    vatRate19 && vatRate7 && 
+    nettoZuBrutto && bruttoZuNetto && 
+    nettoZuBruttoResult && bruttoZuNettoResult && button) {
 
-aufschlagen.addEventListener('click', function changeCalc2() {
-    for(const betragTitle of nettobetragTitle) {
-        betragTitle.style.display = 'block';
-    }
-    for(const betragTitle of bruttobetragTitle) {
-        betragTitle.style.display = 'none';
-    }
-})
+        abziehen.addEventListener('click', () => {
+            bruttoZuNetto.style.display = 'block';
+            bruttoZuNettoResult.style.display = 'block';
+            nettoZuBrutto.style.display = 'none';
+            nettoZuBruttoResult.style.display = 'none';
+        })
 
+        aufschlagen.addEventListener('click', () => {
+            bruttoZuNetto.style.display = 'none';
+            bruttoZuNettoResult.style.display = 'none';
+            nettoZuBrutto.style.display = 'block';
+            nettoZuBruttoResult.style.display = 'block';
+        })
 
-if(form) {
-    form.addEventListener('submit', function berechnen() {
-        const operation = document.getElementsByName('operation');
-        const wert = document.getElementsByName('wert');
-        const nettobetrag = document.querySelector('#nettobetrag') as HTMLInputElement;
-        const vat = document.querySelector('.vat');
-        const grossAmount = document.querySelector('.gross-amount');
-        let selectedOperation = '';
-        let selectedWert = '';
-        
-        
-        if(operation && wert && nettobetrag && vat && grossAmount) {
-            for(const radio of operation) {
-                if(radio.checked) {
-                    selectedOperation = radio.value;
+        button.addEventListener('click', () => {
+            const nettobetrag = document.querySelector('#nettobetrag') as HTMLInputElement;
+            const vat = document.querySelector('.vat')as HTMLElement;
+            const grossAmount = document.querySelector('.gross-amount') as HTMLElement;
+
+            const adjustedUserInput: number = Number(nettobetrag.value.replace(',', '.'));
+
+            switch(true) {
+                case aufschlagen.checked:
+                    if(vatRate19.checked) {
+                        const vatResult: number = adjustedUserInput * 0.19;
+                        const grossAmountResult: number = adjustedUserInput + vatResult;
+                        vat.textContent = `${vatResult.toFixed(2)} €`;
+                        grossAmount.textContent = `${grossAmountResult.toFixed(2)} €`;
+                    } else if(vatRate7.checked) {
+                        const vatResult: number = adjustedUserInput * 0.07;
+                        const grossAmountResult: number = adjustedUserInput + vatResult;
+                        vat.textContent = `${vatResult.toFixed(2)} €`;
+                        grossAmount.textContent = `${grossAmountResult.toFixed(2)} €`;
+                    }
                     break;
-                }
-            }
-            if(selectedOperation === 'aufschlagen') {
-                for(const radio of wert) {
-                    if(radio.checked) {
-                        selectedWert = radio.value;
-                        break;
+                case abziehen.checked:
+                    if(vatRate19.checked) {
+                    const vatResult: number = (adjustedUserInput / 1.19) * 0.19;
+                    const grossAmountResult: number = adjustedUserInput - vatResult;
+                    vat.textContent = `${vatResult.toFixed(2)} €`;
+                    grossAmount.textContent = `${grossAmountResult.toFixed(2)} €`;
+                    } else if(vatRate7.checked) {
+                        const vatResult: number = (adjustedUserInput / 1.19) * 0.07;
+                        const grossAmountResult: number = adjustedUserInput - vatResult;
+                        vat.textContent = `${vatResult.toFixed(2)} €`;
+                        grossAmount.textContent = `${grossAmountResult.toFixed(2)} €`;
                     }
-                }
-                if(selectedWert === '19') {
-                    const vatResult: number = Number(nettobetrag.value) * 0.19;
-                    const grossAmountResult: number = Number(nettobetrag.value) + vatResult;
-                    vat.textContent = `${vatResult.toFixed(2)} €`;
-                    grossAmount.textContent = `${grossAmountResult.toFixed(2)} €`;
-                } else if (selectedWert === '7') {
-                    console.log('Também deu certo');
-                    const vatResult: number = Number(nettobetrag.value) * 0.07;
-                    const grossAmountResult: number = Number(nettobetrag.value) + vatResult;
-                    vat.textContent = `${vatResult.toFixed(2)} €`;
-                    grossAmount.textContent = `${grossAmountResult.toFixed(2)} €`;
-                } else {
-                    console.log('Valor nao selecionado');
-                }
-            } else if(selectedOperation === 'abziehen') {
-                for(const radio of wert) {
-                    if(radio.checked) {
-                        selectedWert = radio.value;
-                        break;
-                    }
-                }
-                if(selectedWert === '19') {
-                    const vatResult: number = (Number(nettobetrag.value) / 1.19) * 0.19;
-                    const grossAmountResult: number = Number(nettobetrag.value) - vatResult;
-                    vat.textContent = `${vatResult.toFixed(2)} €`;
-                    grossAmount.textContent = `${grossAmountResult.toFixed(2)} €`;
-                } else if (selectedWert === '7') {
-                    const vatResult: number = (Number(nettobetrag.value) / 1.19) * 0.07;
-                    const grossAmountResult: number = Number(nettobetrag.value) - vatResult;
-                    vat.textContent = `${vatResult.toFixed(2)} €`;
-                    grossAmount.textContent = `${grossAmountResult.toFixed(2)} €`;
-                } else {
-                    console.log('Valor nao selecionado2');
-                }
-            } else {
-                console.log('Selecione alguma coisa, pelamor!');
+                    break;
+                default: console.log('Bitte, wählen Sie die Optionen für die Berechnung.');
             }
-        }
-    })
+        })
 }
