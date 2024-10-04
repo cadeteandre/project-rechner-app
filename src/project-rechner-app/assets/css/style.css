@@ -65,10 +65,3 @@ h2 {
 .results {
     gap: 1rem;
 }
-
-.bruttoZuNetto {
-    display: none;
-}
-.bruttoZuNetto__result {
-    display: none;
-}
